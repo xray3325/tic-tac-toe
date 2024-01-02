@@ -131,7 +131,15 @@ def restart():
     for obj in buttons:
         obj.clicked = False
         obj.draw()
-    py.mouse.set_pos(900, 750)
+    draw()
+
+def draw():
+    text_surface = my_font.render('X - O', False, ('white'))
+    score = my_font.render(f"{x} - {o}", False, ('white'))
+    win.blit(score, (960, 120))
+    win.blit(text_surface, (950, 50))
+    py.display.flip()
+    py.time.delay(500)
 
 buttons = []
 buttons.append(field(0, 0, 266, 266, 0, 0))
@@ -154,14 +162,15 @@ player = 'x'
 x = 0
 o = 0
 def main():
-    running = True
     for obj in buttons:
         obj.draw()
+    draw()
+    running = True
     while running:
         for event in py.event.get():
             if event.type == py.QUIT:
                 running = False
-            elif event.type == py.MOUSEBUTTONUP and event.button == 1:
+            if event.type == py.MOUSEBUTTONUP and event.button == 1:
                 print(py.time.get_ticks())
                 for obj in buttons:
                     if py.Rect.collidepoint(obj.return_rect(), py.mouse.get_pos()) and obj.clicked == False:
@@ -169,11 +178,7 @@ def main():
                         middle = (obj.x + 133, obj.y + 133)
                         game(obj.row, obj.column, middle)
 
-        text_surface = my_font.render('X - O', False, ('white'))
-        score = my_font.render(f"{x} - {o}", False, ('white'))
-        win.blit(score, (960, 120))
-        win.blit(text_surface, (950, 50))
-
+        py.event.clear()
         py.display.flip()
         clock.tick(60)
     quit()
