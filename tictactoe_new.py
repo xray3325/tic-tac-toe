@@ -1,4 +1,5 @@
 import pygame as py
+import random as ran
 
 py.init()
 
@@ -33,12 +34,13 @@ class field():
 def game(m, n, middle):
     global score
     global player
-
+    print(f'game: {player}')
     if score[m][n] == 0:
         score[m][n] = player 
+
     draw_xo(player, middle)
     check_win()
-    player = 'x' if player == 'o' else 'o'
+    player = 'o' if player == 'x' else 'x'
 
 def draw_xo(player, middle):
     size = 75
@@ -92,6 +94,7 @@ def end(position):
         x += 1
     else:
         o += 1
+
     for obj in buttons:
         obj.clicked = True
 
@@ -117,7 +120,10 @@ def end(position):
 
     restart()
 
-def restart():   
+def restart():
+    global player
+    global count
+
     py.display.flip()
     py.time.delay(2000)
 
@@ -131,6 +137,13 @@ def restart():
     for obj in buttons:
         obj.clicked = False
         obj.draw()
+
+    if count % 2 == 0:
+        player = 'x'
+    else:
+        player = 'o'
+    count += 1
+    print(f'count: {count} player: {player}')
     draw()
 
 def draw():
@@ -158,10 +171,18 @@ score = [[0, 0, 0],
         [0, 0, 0],
         [0, 0, 0]]
 
-player = 'x'
+if ran.randint(0, 1) == 1:
+    count = 0
+    player = 'x'
+else:
+    count = 1
+    player = 'o'
+
 x = 0
 o = 0
+
 def main():
+    global player
     for obj in buttons:
         obj.draw()
     draw()
@@ -170,10 +191,10 @@ def main():
         for event in py.event.get():
             if event.type == py.QUIT:
                 running = False
-            if event.type == py.MOUSEBUTTONUP and event.button == 1:
-                print(py.time.get_ticks())
+            elif event.type == py.MOUSEBUTTONUP and event.button == 1:
                 for obj in buttons:
                     if py.Rect.collidepoint(obj.return_rect(), py.mouse.get_pos()) and obj.clicked == False:
+                        print(player)
                         obj.clicked = True
                         middle = (obj.x + 133, obj.y + 133)
                         game(obj.row, obj.column, middle)
