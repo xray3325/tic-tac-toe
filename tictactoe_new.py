@@ -34,7 +34,9 @@ class field():
 def game(m, n, middle):
     global score
     global player
+
     print(f'game: {player}')
+
     if score[m][n] == 0:
         score[m][n] = player 
 
@@ -51,6 +53,8 @@ def draw_xo(player, middle):
         B_1 = (middle[0]+size, middle[1]+size)
         py.draw.line(win, "white", A, B, 3)
         py.draw.line(win, "white", A_1, B_1, 3)
+
+
     elif player == "o":
         py.draw.circle(win, "white", middle, size, 3)
 
@@ -60,7 +64,8 @@ def check_win():
             print(f"wygrana poziomo {i}")
             end(f'h{i}')
 
-    new_score = [[score[i][j] for i in range(len(score))] for j in range(len(score[0])-1, -1, -1)]
+    new_score = [[score[i][j] for i in range(len(score))]
+                for j in range(len(score[0])-1, -1, -1)]
 
     for j in range(3):
         if len(set(new_score[j])) == 1 and 0 not in new_score[j]:
@@ -185,8 +190,10 @@ def main():
     global player
     for obj in buttons:
         obj.draw()
+
     draw()
     running = True
+    
     while running:
         for event in py.event.get():
             if event.type == py.QUIT:
@@ -202,6 +209,6 @@ def main():
         py.event.clear()
         py.display.flip()
         clock.tick(60)
-    quit()
 
+    quit()
 main()
