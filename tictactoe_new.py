@@ -8,7 +8,7 @@ HEIGHT = 800
 
 win = py.display.set_mode((WIDTH, HEIGHT))
 clock = py.time.Clock()
-my_font = py.font.SysFont('Comic Sans MS', 80)
+my_font = py.font.SysFont('Iosevka', 80)
 
 class field():
     def __init__(self, x, y, width, height, row, column):
@@ -154,8 +154,8 @@ def restart():
 def draw():
     text_surface = my_font.render('X - O', False, ('white'))
     score = my_font.render(f"{x} - {o}", False, ('white'))
-    win.blit(score, (960, 120))
-    win.blit(text_surface, (950, 50))
+    win.blit(score, (940, 120))
+    win.blit(text_surface, (940, 50))
     py.display.flip()
     py.time.delay(500)
 
