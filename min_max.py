@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 score = [['x', 'o', 'x'],
          ['x', 'x', 0],
          ['x', 0, 0]]
@@ -67,11 +69,11 @@ def actions(score):
     return actions
 
 def result(score, actions):
-    new_score = score
     lista = []
     for i in actions:
-        new_score[i // 3][i % 3] = 'x'
-        lista.append(new_score)
-        new_score[i // 3][i % 3] = 0
+        score[i // 3][i % 3] = 'x'
+        lista.append(deepcopy(score))
+        score[i // 3][i % 3] = 0
     return lista
+
 print(result(score, actions(score)))
