@@ -49,12 +49,14 @@ def value(score):
 def player(score):
     x = 0
     o = 0
+    
     for i in range(3):
         for j in range(3):
             if score[i][j] == 'x':
                 x += 1
             elif score[i][j] == 'o':
                 o += 1
+
     if x == o:
         return "max"
     else:
@@ -66,6 +68,7 @@ def actions(score):
         for j in range(3):
             if score[i][j] == 0:
                 actions.append(i*3 + j)
+
     return actions
 
 def result(score, actions):
@@ -74,6 +77,7 @@ def result(score, actions):
         score[i // 3][i % 3] = 'x'
         lista.append(deepcopy(score))
         score[i // 3][i % 3] = 0
+
     return lista
 
 print(result(score, actions(score)))
