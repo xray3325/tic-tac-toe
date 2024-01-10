@@ -1,8 +1,9 @@
 from copy import deepcopy
+from itertools import chain
 
-score = [['x', 'o', 'x'],
-         ['x', 'x', 0],
-         ['x', 0, 0]]
+score = [[ 'o',  0, 'x'],
+         ['x', 0, 'o'],
+         ['x', 'x', 'o']]
 
 def value(score):
     for i in range(3):
@@ -72,12 +73,26 @@ def actions(score):
     return actions
 
 def result(score, actions):
-    lista = []
-    for i in actions:
-        score[i // 3][i % 3] = 'x'
-        lista.append(deepcopy(score))
-        score[i // 3][i % 3] = 0
-
+    i = actions
+    score[i // 3][i % 3] = 'x'
+    lista = deepcopy(score)
+    score[i // 3][i % 3] = 0
     return lista
 
-print(result(score, actions(score)))
+def minmax(score):
+    if value(score) != None:
+        return value(score)
+
+    if player(score) == 'max':
+        Value = float('-inf')
+        for a in actions(score):
+            Value = max(Value, minmax(result(score, a)))
+        return Value
+
+    if player(score) == 'min':
+        Value = float('inf')
+        for a in actions(score):
+            Value = min(Value, minmax(result(score, a)))
+
+    
+minmax(score)
