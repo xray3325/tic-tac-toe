@@ -1,7 +1,7 @@
 from copy import deepcopy
 from itertools import chain
 
-score = [[ 'o',  0, 'x'],
+score = [[ 'o',  'x', 'x'],
          ['x', 0, 'o'],
          ['x', 'x', 'o']]
 
@@ -94,5 +94,4 @@ def minmax(score):
         for a in actions(score):
             Value = min(Value, minmax(result(score, a)))
 
-    
 minmax(score)
