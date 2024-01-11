@@ -1,7 +1,6 @@
 from copy import deepcopy
-from itertools import chain
 
-score = [[ 'o',  'x', 'x'],
+score = [[ 'o',  0, 'x'],
          ['x', 0, 'o'],
          ['x', 'x', 'o']]
 
